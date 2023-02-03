@@ -1,0 +1,115 @@
+
+
+
+void    ra(s_stack *stack_a, int switcher)
+{
+    int temp;
+    int i;
+    
+    i = 0;
+    temp = stack_a->array[0];    
+    while (i < stack_a->size - 1)
+    {
+        stack_a->array[i] = stack_a->array[i + 1];
+        i++;    
+    }
+    stack_a->array[i] = temp;
+    if (switcher == 0)
+        ft_putstr("ra\n");
+}
+
+void    rra(s_stack *stack_a, int switcher)
+{
+    int temp;
+    int i;
+    
+    i = stack_a->size - 1;
+    temp = stack_a->array[i];
+    while(i > 0)
+    {
+        stack_a->array[i] = stack_a->array[i - 1];
+        i--;
+    }
+    stack_a->array[0] = temp;
+    if (switcher == 0)
+        ft_putstr("rra\n");   
+}
+
+void    rb(s_stack *stack_b, int switcher)
+{
+    int temp;
+    int i;
+    
+    i = 0;
+    temp = stack_b->array[0];    
+    while (i < stack_b->size - 1)
+    {
+        stack_b->array[i] = stack_b->array[i + 1];
+        i++;    
+    }
+    stack_b->array[i] = temp;
+    if (switcher == 0)
+        ft_putstr("rb\n");  
+}
+
+void    rrb(s_stack *stack_b, int switcher)
+{
+    int temp;
+    int i;
+    
+    i = stack_b->size - 1;
+    temp = stack_b->array[i];
+    while(i > 0)
+    {
+        stack_b->array[i] = stack_b->array[i - 1];
+        i--;
+    }
+    stack_b->array[0] = temp;
+    if (switcher == 0)
+        ft_putstr("rrb\n"); 
+}
+
+void	sa(s_stack *stack_a, int switcher)
+{
+    if (stack_a->size >= 2)
+    {
+        int temp;
+        temp = stack_a->array[0];
+        stack_a->array[0] = stack_a->array[1];
+        stack_a->array[1] = temp;
+        if (switcher == 0)
+            ft_putstr("sa\n");
+    }
+}
+
+void     pb(s_stack *stack_a, s_stack *stack_b)
+{
+    int temp;
+
+    if (stack_a->size > 0)   
+    {
+        temp = stack_a->array[0];
+        ra(stack_a, 1);
+        stack_a->size -= 1;
+        stack_b->size += 1;
+        stack_b->array[stack_b->size - 1] = temp;
+        rrb(stack_b, 1);
+        ft_putstr("pb\n");
+    }
+}
+
+void    pa(s_stack *stack_a, s_stack *stack_b)
+{
+    int temp;
+
+    if (stack_b->size > 0) 
+    {
+        temp = stack_b->array[0];
+        rb(stack_b, 1);
+        stack_b->size -= 1;
+        stack_a->size += 1;
+        stack_a->array[stack_a->size - 1] = temp;
+        rra(stack_a, 1);        
+        ft_putstr("pa\n");
+    }
+}

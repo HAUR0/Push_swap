@@ -3,66 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-void array_printer(int *arr)
-{
-    int i = 0;
-    
-    while(i < 11)
-    {
-        printf("Array[%i] = %d\n", i, arr[i]);
-        i++;
-    }
-}
-
-int main()
-{
-    int i = 0;
-    int x;
-
-    int stack_a[] = {-5, 7, 33, -12, 80, 9, 6, 1000, 99, 345, -786789};
-    int asorted[] = {-786789, -12, -5, 6, 7, 9, 33, 80, 99, 345, 1000};
-
-    array_printer(asorted);
-    while(stack_a[i])
-    {
-        x = 0;
-        while(stack_a[i])
-        {
-            if(stack_a[i] == asorted[x])
-            {
-                stack_a[i] = x;
-                break;
-            }
-            x++;
-        }
-        i++;
-    }
-    printf("\n");
-    array_printer(stack_a);
-}
-
-/* 
-int char_input_check(char **arr)
-{
-	int i;
-	int p;
-	
-	p = 0;
-	while(arr[p])
-	{
-		i = 0;
-		while(arr[p][i])
-		{
-			if(stack_a[i] == sorted[x])
-
-			i++;
-		}
-		p++;
-	}
-	return (0);
-}
-
-int	stringlength(int *str)
+size_t	ft_strlen(const char *str)
 {
 	int	cnt;
 
@@ -73,77 +14,162 @@ int	stringlength(int *str)
 	}
 	return (cnt);
 }
-
-void array_printer(int *arr)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    int i = 0;
-    
-    while(arr[i])
+	char	*dst;
+	size_t	i;
+
+	i = 0;
+	if (start >= ft_strlen(s))
+		len = 0;
+	if (len > ft_strlen(s) - start)
     {
-        printf("Array[%i] = %d\n", i, arr[i]);
+		dst = malloc(ft_strlen(s) - start + 1);
+        if (!dst)
+		    return (NULL);
+    }
+	else
+		dst = malloc(len + 1);
+	if (!dst)
+		return (NULL);
+	while (i < len && s[start + i] != '\0')
+	{
+		dst[i] = s[start + i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+static int	word_cnt(char const *str, char c)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (str[i])
+	{
+		if (str[i] != c)
+		{
+			cnt++;
+			while (str[i] != c)
+			{
+				i++;
+				if (str[i] == '\0')
+					return (cnt);
+			}
+		}
+		i++;
+	}
+	return (cnt);
+}
+static int	word_length(char const *str, char c)
+{
+	int	i;
+	int	cnt;
+
+	i = 0;
+	cnt = 0;
+	while (str[i])
+	{
+		while (str[i] && str[i] == c)
+			i++;
+		while (str[i] && str[i] != c)
+		{
+			cnt++;
+			i++;
+		}
+		return (cnt);
+		i++;
+	}
+	return (0);
+}
+char	**ft_split(char const *s, char c)
+{
+	int		i;
+	int		x;
+	char	**arr;
+
+	i = 0;
+	x = 0;
+	arr = (char **)malloc(sizeof(char *) * (word_cnt(s, c) + 1));
+	if (!arr)
+		return (NULL);
+	while (x < word_cnt(s, c))
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		arr[x] = ft_substr(s, i, word_length(&s[i], c));
+		i = i + word_length(&s[i], c);
+		x++;
+	}
+	arr[word_cnt(s, c)] = NULL;
+	return (arr);
+}
+int get_malloc_size(int ac, char **av)
+{
+	int i;
+	int x;
+	int counter;
+	char **tmp_arr;
+
+	i = 0;
+	counter = 0;
+	while(i < ac-1)
+	{
+		x = 0;
+		tmp_arr = ft_split(av[i+1], ' ');
+		while(tmp_arr[x++])
+			counter++;
+		i++;
+	}
+    i = 0;
+	while(tmp_arr[i])
+    {
+	    free(tmp_arr[i]);
         i++;
     }
+	free(tmp_arr);
+	return (counter);
+}
+int main(int ac, char **av)
+{
+    int cnt;
+    //int i = 0;
+
+    cnt = get_malloc_size(ac, av);
+/* 
+    while(tmp_arr[i])
+    {
+	    free(&tmp_arr[i]);
+        i++;
+    } */
+    printf("%d", cnt);
 }
 
-int main()
+
+valgrind --leak-check=full --show-leak-kinds=all -s ./a.out
+
+int six_numbers(int *stack_a, int size_a)
 {
-    int i = 0;
-    int *arr = malloc(sizeof(int) * 5 + 1);
+    int stack_a[] = {88, 13008, 456, 122, 501};
+    int size_a = sizeof(stack_a) / sizeof(stack_a[0]);
+    printf("%d\n", size_a);
 
-    arr[0] = 1;
-    arr[1] = 2;
-    arr[2] = 3;
-    arr[3] = 4;
-    arr[4] = 5;
-    arr[5] = '\0';
- 
-    int arr_size = stringlength(arr);
+    int *sorted_stack;
+    sorted_stack = (int *)malloc(sizeof(int) * (size_a + 1));
+    if(!sorted_stack)
+        safe_exit(2, sorted_stack);
 
-    printf("arr_size: %d\n\n", arr_size);
-    array_printer(arr);
+    array_cpy(stack_a, sorted_stack, size_a);
+    pre_sorter(sorted_stack, size_a);
+    re_indexing(stack_a, sorted_stack, size_a);
+
+    array_printer(sorted_stack, size_a);
     printf("\n");
+    array_printer(stack_a, size_a);
+    free(sorted_stack);
 
-    while(arr[i])
-    {
-        arr[arr_size] = arr[arr_size - 1]; //rewriting it shifted
-        //printf("Array[%i] = %d\n", arr_size, arr[arr_size]);
-        arr_size--;
-        i++;
-    }
-    arr[0] = 69; //simulating sa
-
-    arr_size = stringlength(arr);
-    printf("arr_size: %d\n\n", arr_size);
-    array_printer(arr);
-    return (0);
+    exit (0);
 }
- */
 
-
-/*  
-int radix()
-{
-    int size_a; //size of stack_a;
-    int counter;
-    int i = 0;
-
-    while(i < 31)
-    {
-        c = 0;
-        while(counter < size_a)
-        {
-            if(stack_a[0] >> i & 1)
-            {
-                rotate_a
-            }
-            else
-            {
-                push_b
-            }
-            counter++;
-        }
-        while(sizeof b != 0)
-            push_a;
-    }
-}
- */

@@ -12,30 +12,39 @@
 
 #include "pushswap.h"
 
-void array_printer(int *arr)
+void array_printer(int *arr, int *size_a)
 {
 	int i;
 
 	i = 0;
-	while(arr[i])
+	if(arr[0] == 0)
+	{
+		ft_printf("Array[0] = 0\n");
+		i = 1;
+	}
+	while(i < *size_a)
 	{
 		ft_printf("Array[%i] = %d\n", i, arr[i]);
 		i++;
 	}
 }
 
-
-void safe_exit(int error)
+void safe_exit(int error, int *array)
 {
+    if(error == 0)
+	{
+        exit (0);
+	}
 	if(error == 1)
 	{
-		ft_printf("Error");
+		ft_printf("Fehler");
 		exit (1);
 	}
 	if(error == 2)
 	{
-		//free(stuff)
-		ft_printf("Error");
+		free(array);
+		ft_printf("Fehler");
+		exit (1);
 	}
 }
 
@@ -57,7 +66,7 @@ void sorted_input(int *les_variables)
 	printf("i: %i\n", i);
 	printf("x: %i\n", x);
 	if(i == (x+1))  // !!! 1 Argument or Number still has to work???
-		safe_exit(1);
+		exit(1);
 }
 
 int char_input_check(char **arr)
@@ -72,7 +81,7 @@ int char_input_check(char **arr)
 		while(arr[p][i])
 		{
 			if((arr[p][i] < '0' || arr[p][i] > '9') && arr[p][i] != '-')
-				safe_exit(1);
+				exit(1);//safe_exit(2, arr); <<== muss noch für ein 2D Array modifiziert werden
 			i++;
 		}
 		p++;
@@ -101,7 +110,8 @@ int get_malloc_size(int ac, char **av)
 		}
 		i++;
 	}
-	//DONT FORGET to free tmp_arr
+	if (tmp_arr)
+		free_array(tmp_arr);
 	return (counter);
 }
 
@@ -109,9 +119,9 @@ int *meloc(int counter)
 {
 	int *arr;
 
-	arr = malloc(sizeof(int) * counter + 1);
+	arr = ft_calloc((counter + 1), 4);
 	if(!arr)
-		safe_exit(2);
+		safe_exit(2, arr);
 	return (arr);
 }
 
@@ -124,20 +134,23 @@ int *argument_reader(int ac, char **av, int *stack_a, int counter)
 	
 	i = 0;
 	k = 0;
+	tmp_arr = NULL;
 	while(i < ac-1)
 	{
 		x = 0;
 		tmp_arr = ft_split(av[i+1], ' ');
 		while(tmp_arr[x])
 		{
-			stack_a[k] = ft_atoi(tmp_arr[x]); //ft_printf("stack_a[%d]: %i\n", i, stack_a[k]);
+			stack_a[k] = ft_atoi(tmp_arr[x]);
 			if(ft_strncmp(tmp_arr[x], ft_itoa(stack_a[k]), counter) != 0)
-				safe_exit(1);
+				safe_exit(2, stack_a);
 			k++;
 			x++;
 		}
 		i++;
 	}
+	if (tmp_arr)
+		free_array(tmp_arr);
 	stack_a[i+1] = '\0';
 	return (stack_a);
 }
@@ -154,12 +167,25 @@ int check_for_doubles(int *stack_a)
 		while(stack_a[i])
 		{
 			if(stack_a[x] == stack_a[i])
-				safe_exit (1);
+				safe_exit (1, stack_a);
 			i++;
 		}
 		x++;
 	}
 	return (0);
+}
+
+void free_array(char **s)
+{
+	int i;
+
+	i = 0;
+	while (s && s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
 }
 
 int main(int ac, char **av)
@@ -168,14 +194,22 @@ int main(int ac, char **av)
 	int *stack_a;
 	int *stack_b;
 
-	stack_a = meloc(get_malloc_size(ac, av));
-	stack_b = meloc(get_malloc_size(ac, av));
+	int size_a;
+	int size_b = 0;
 
-	les_variables = argument_reader(ac, av, stack_a, get_malloc_size(ac, av));
-	sorted_input(les_variables);
+	size_a = (get_malloc_size(ac, av));
+	stack_a = meloc(size_a);
+	stack_b = meloc(size_a);
+
+	les_variables = argument_reader(ac, av, stack_a, size_a);
 	check_for_doubles(les_variables);
+	call_sorting(stack_a, stack_b, &size_b, &size_a);
 
-	//array_printer(stack_a);
-
+	//array_printer(stack_a, &size_a);
+	//array_printer(stack_b);
 	return (0);
 }
+
+//int size = sizeof(data) / sizeof(data[0]);
+
+diff <(./push_swap 8 7 6 5 4 3) <(./push_swap "8 7 6 5 4 3")

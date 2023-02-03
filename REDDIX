@@ -1,0 +1,53 @@
+
+int    *reddix_sort(t_stack *stack_a, t_stack *stack_b, int byte)
+{
+    int    s;
+    int    x;
+    int    i;
+
+    s = stack_a->size;
+    i = 0;
+    while (i < byte)
+    {
+        x = 0;
+        while (x < s)
+        {
+            if (stack_a->array[0] >> i & 1)
+                ra(stack_a, 0);
+            else
+                pb(stack_a, stack_b);
+            x++;
+        }
+        while (stack_b->size != 0)
+            pa(stack_a, stack_b);
+        i++;
+    }
+    return (stack_a->array);
+}
+
+int retiks_sort(int *stack_a, int *stack_b, int *size_a, int *size_b)
+{
+    int i;
+    int x;
+
+    i = 0;
+    while(i < 9) // <<-- dependent on argument number
+    {
+        x = 0;
+        while(x < *size_a)
+        {
+            if(stack_a[0] >> i & 1)               
+                rotate_a(stack_a, size_a, 0);
+            else
+                push_b(stack_a, stack_b, size_a, size_b);
+            x++;
+        }
+        while(*size_b != 0)
+        {
+            push_a(stack_a, stack_b, size_a, size_b);
+            array_printer(stack_a;);
+        }
+        i++;
+    }
+    return (0);
+}
