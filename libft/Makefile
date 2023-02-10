@@ -78,10 +78,10 @@ ${NAME}:
 	ar rcs $(NAME) $(OBJECTS)
 
 clean:	
-	/bin/rm -f $(OBJECTS)
+	@$(RM) $(OBJECTS)
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@$(RM) $(NAME)
 
 re: fclean all
 

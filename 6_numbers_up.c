@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   call_sorting.c                                     :+:      :+:    :+:   */
+/*   6_numbers_up.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rloos <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 16:23:07 by rloos             #+#    #+#             */
-/*   Updated: 2023/02/10 16:23:18 by rloos            ###   ########.fr       */
+/*   Created: 2023/02/10 16:22:30 by rloos             #+#    #+#             */
+/*   Updated: 2023/02/10 16:22:35 by rloos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pushswap.h"
 
-int	call_sorting(int *stack_a, int *stack_b, int *size_b, int *size_a)
+int	radix_hub(int *stack_a, int *stack_b, int *size_a, int *size_b)
 {
-	if (*size_a == 2)
-		two_numbers(stack_a, size_a);
-	else if (*size_a == 3)
-		three_numbers(stack_a, size_a);
-	else if (*size_a == 4)
-		four_numbers(stack_a, stack_b, size_a, size_b);
-	else if (*size_a == 5)
-		five_numbers(stack_a, stack_b, size_a, size_b);
-	else if (*size_a > 5)
-		radix_hub(stack_a, stack_b, size_a, size_b);
+	int	*sorted_stack;
+
+	sorted_stack = (int *)malloc(sizeof(int) * (*size_a + 1));
+	if (!sorted_stack)
+		safe_exit(2, sorted_stack);
+	array_cpy(stack_a, sorted_stack, size_a);
+	pre_sorter(sorted_stack, size_a);
+	re_indexing(stack_a, sorted_stack, size_a);
+	retiks(stack_a, stack_b, size_a, size_b);
+	free(sorted_stack);
 	return (0);
 }

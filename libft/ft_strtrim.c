@@ -6,7 +6,7 @@
 /*   By: rloos <rloos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 12:09:17 by rloos             #+#    #+#             */
-/*   Updated: 2022/10/25 16:22:34 by rloos            ###   ########.fr       */
+/*   Updated: 2023/02/10 16:42:12 by rloos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 }
 
 /* 
-char    *ft_strtrim(char *str, char rem)
+char	*ft_strtrim(char *str, char rem)
 {
     char    *res;
     int        j;
@@ -62,13 +62,13 @@ char    *ft_strtrim(char *str, char rem)
 }
  */
 
-int	main(void)
+/* int	main(void)
 {
-	char	*s1;
-	char	*set;
+	char *s1;
+	char *set;
 
 	s1 = "Hello Please Trim me !";
 	set = "P";
-	
+
 	printf("%s", ft_strtrim(s1, set));
-}
+} */

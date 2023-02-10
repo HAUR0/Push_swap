@@ -14,7 +14,7 @@
 
 int	pr_putstr(char *b, int cnt)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!b)

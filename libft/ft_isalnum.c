@@ -21,6 +21,7 @@ int	ft_isalnum(int arg)
 	}
 	return (0);
 }
+
 /*
 int	main(void)
 {

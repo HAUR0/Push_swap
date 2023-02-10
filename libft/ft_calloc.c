@@ -26,7 +26,7 @@ void	*ft_calloc(size_t bytes, size_t size)
 }
 
 /* 
-int		main(int argc, const char *argv[])
+int	main(int argc, const char *argv[])
 {
 	char	*str;
 

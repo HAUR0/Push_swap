@@ -38,7 +38,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 /* 
 int	main(void)
 {
-	char *dest;
+	char	*dest;
 
 	dest = ft_substr("Hola Mundo", 0, 3);
 	printf("%s", dest);

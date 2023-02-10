@@ -38,7 +38,6 @@ int	main(void)
 {
 	char	*dst;
 	char	*src;
-
 	char	*dst2;
 	char	*src2;
 
@@ -50,7 +49,6 @@ int	main(void)
 	
 	ft_memcpy(dst, src, 50);
 	printf("%s\n", dst);
-
 	memcpy(dst2, src2, 50);
 	printf("%s", dst2);
 }

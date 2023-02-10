@@ -53,7 +53,6 @@ int	pr_hexa_lo(unsigned int n, int cnt)
 	return (cnt);
 }
 
-
 /* 
 int	pr_hexa_lo(unsigned int n, int cnt)
 {

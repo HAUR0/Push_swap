@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rloos <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: rloos <rloos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 15:08:47 by rloos             #+#    #+#             */
-/*   Updated: 2022/10/13 15:09:33 by rloos            ###   ########.fr       */
+/*   Updated: 2023/02/10 16:45:06 by rloos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
 # include <ctype.h>
 # include <math.h>
 # include <stdio.h>
@@ -21,7 +20,7 @@
 # include <strings.h>
 # include <unistd.h>
 
-#  define BUFFER_SIZE 100
+# define BUFFER_SIZE 100
 
 int		ft_isalpha(int argument);
 int		ft_isdigit(int arg);
@@ -59,15 +58,15 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
 //ft_printf-functions
-int	    pr_putchar(char a, int cnt);
-int	    pr_putstr(char *b, int cnt);
-int	    pr_putnbr(int e, int cnt);
-int	    pr_putunsigned_nbr(unsigned int e, int cnt);
-int	    pr_hexa_up(unsigned int n, int cnt);
-int	    pr_hexa_lo(unsigned int n, int cnt);
-int	    pr_pointer(unsigned long long n, int cnt);
-int	    ptr_write(unsigned long long dingdong, int cnt);
-int	    ft_printf(const char *str, ...);
+int		pr_putchar(char a, int cnt);
+int		pr_putstr(char *b, int cnt);
+int		pr_putnbr(int e, int cnt);
+int		pr_putunsigned_nbr(unsigned int e, int cnt);
+int		pr_hexa_up(unsigned int n, int cnt);
+int		pr_hexa_lo(unsigned int n, int cnt);
+int		pr_pointer(unsigned long long n, int cnt);
+int		ptr_write(unsigned long long dingdong, int cnt);
+int		ft_printf(const char *str, ...);
 
 //get_next_line-functions
 int		get_checkline(char *str);
